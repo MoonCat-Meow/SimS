@@ -20,37 +20,47 @@ class RolePermissionSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions (optional, just basic for now)
-        Permission::create(['name' => 'manage satpam']);
-        Permission::create(['name' => 'view laporan']);
-        Permission::create(['name' => 'create laporan']);
+        Permission::create(['name' => 'manage all']);
+        Permission::create(['name' => 'view reports']);
+        Permission::create(['name' => 'create reports']);
 
         // create roles and assign created permissions
         $roleAdmin = Role::create(['name' => 'Admin']);
         $roleAdmin->givePermissionTo(Permission::all());
 
-        $roleDanru = Role::create(['name' => 'Danru']);
-        $roleDanru->givePermissionTo(['view laporan', 'create laporan']);
+        $roleManagement = Role::create(['name' => 'Management']);
+        $roleManagement->givePermissionTo(['view reports']);
+
+        $roleKoordinator = Role::create(['name' => 'Koordinator']);
+        $roleKoordinator->givePermissionTo(['view reports', 'create reports']);
 
         $roleSatpam = Role::create(['name' => 'Satpam']);
-        $roleSatpam->givePermissionTo('create laporan');
+        $roleSatpam->givePermissionTo('create reports');
 
         // create demo users
         $admin = User::factory()->create([
-            'name' => 'Super Admin',
+            'name' => 'Admin User',
             'email' => 'admin@example.com',
             'password' => Hash::make('password'),
         ]);
         $admin->assignRole($roleAdmin);
 
-        $danru = User::factory()->create([
-            'name' => 'Komandan Regu',
-            'email' => 'danru@example.com',
+        $management = User::factory()->create([
+            'name' => 'Management User',
+            'email' => 'management@example.com',
             'password' => Hash::make('password'),
         ]);
-        $danru->assignRole($roleDanru);
+        $management->assignRole($roleManagement);
+
+        $koordinator = User::factory()->create([
+            'name' => 'Koordinator User',
+            'email' => 'koordinator@example.com',
+            'password' => Hash::make('password'),
+        ]);
+        $koordinator->assignRole($roleKoordinator);
 
         $satpam = User::factory()->create([
-            'name' => 'Petugas Satpam',
+            'name' => 'Satpam User',
             'email' => 'satpam@example.com',
             'password' => Hash::make('password'),
         ]);
