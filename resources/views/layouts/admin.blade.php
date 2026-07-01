@@ -91,10 +91,10 @@
 
             <ul class="list-unstyled components">
                 <li>
-                    <a href="#"><i class="fas fa-home me-2"></i> Dashboard</a>
+                    <a href="{{ route('dashboard') }}"><i class="fas fa-home me-2"></i> Dashboard</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fas fa-users me-2"></i> Personel</a>
+                    <a href="{{ route('satpams.index') }}"><i class="fas fa-users me-2"></i> Personel</a>
                 </li>
                 <li>
                     <a href="#"><i class="fas fa-file-alt me-2"></i> Laporan</a>

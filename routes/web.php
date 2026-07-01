@@ -30,6 +30,12 @@ Route::middleware(['auth', 'role:Koordinator'])->group(function () {
     })->name('koordinator.dashboard');
 });
 
+Route::middleware(['auth', 'role:Admin|Management|Koordinator'])->group(function () {
+    Route::get('/satpams/trash', [\App\Http\Controllers\SatpamController::class, 'trash'])->name('satpams.trash');
+    Route::post('/satpams/{id}/restore', [\App\Http\Controllers\SatpamController::class, 'restore'])->name('satpams.restore');
+    Route::resource('satpams', \App\Http\Controllers\SatpamController::class);
+});
+
 Route::middleware(['auth', 'role:Satpam'])->group(function () {
     Route::get('/satpam/dashboard', function () {
         return view('dashboards.satpam');
